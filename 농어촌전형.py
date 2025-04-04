@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import joblib
-import plotly.graph_objects as go
 
 
 st.set_page_config(
@@ -11,8 +10,7 @@ st.set_page_config(
     initial_sidebar_state="auto",
 )
 
-st.title("Hello World!")
-st.write("Hello, Streamlit!")
-
-if st.button("Refresh"):
-    st.rerun()
+st.title("메타버스 아카데미")
+st.title("농어촌 전형 팀 머신러닝 프로젝트")
+st.write("2025-03-31 ~ 2025-04-04")
+st.write("팀원: 박정훈, 배성우, 임승환")
