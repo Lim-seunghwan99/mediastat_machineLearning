@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import joblib
 import plotly.graph_objects as go
-import matplotlib.pyplot as plt
 
 
 st.set_page_config(
