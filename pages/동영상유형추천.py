@@ -16,106 +16,172 @@ st.set_page_config(
 # 저장된 모델 로드
 model = joblib.load("best_xgb_model.pkl")
 
+left_col, right_col = st.columns([1, 2])
+
 
 def main():
-    st.title("설문 데이터 입력")
+    with left_col:
+        st.title("설문 데이터 입력")
+        # 기본 정보 입력
+        # PID = st.number_input("PID", min_value=1, step=1)
+        dm1 = st.selectbox("성별", ["남자", "여자"])
+        DM2 = st.selectbox(
+            "연령대", ["10대", "20대", "30대", "40대", "50대", "60대", "70세 이상"]
+        )
+        DM3 = st.selectbox(
+            "지역",
+            [
+                "서울",
+                "인천/경기",
+                "부산/울산/경남",
+                "광주/전라/제주",
+                "대전/충청/세종",
+                "대구/경북",
+                "강원",
+            ],
+        )
+        DM4 = st.selectbox(
+            "직업",
+            ["학생", "사무직", "서비스/판매직", "생산직", "기타", "주부", "무직"],
+        )
+        dm6 = st.selectbox(
+            "학력", ["중/고등학생", "고졸이하", "대학생/대학원생", "대졸이상"]
+        )
+        dm7 = st.selectbox(
+            "주거형태", ["단독주택", "아파트", "오피스텔", "기타", "다세대 및 연립주택"]
+        )
+        dm8 = st.selectbox(
+            "가구 형태", ["독신가구", "1세대가구", "2세대가구", "3세대가구", "기타"]
+        )
+        Q416 = st.slider("스마트폰 일 평균 이용시간 (시간)", 0, 24, 12)
+        Q417 = st.selectbox(
+            "월평균 스마트폰 이용 요금",
+            [
+                "3만원 미만",
+                "3만원 이상-4만원 미만",
+                "4만원 이상-5만원 미만",
+                "5만원 이상-6만원 미만",
+                "6만원 이상-7만원 미만",
+                "7만원 이상-10만원 미만",
+                "10만원 이상",
+            ],
+            index=random.randint(0, 6),
+        )
+    with right_col:
+        st.title("        ")
+        # Q424A1 ~ Q424A4 선택지 업데이트
+        importance_levels = [
+            "전혀 중요하지 않다",
+            "중요하지 않다",
+            "보통이다",
+            "중요하다",
+            "매우 중요하다",
+        ]
+        Q424A1 = st.selectbox(
+            "스마트폰 중요도 - 뉴스/정보 검색 및 이용",
+            importance_levels,
+            index=random.randint(0, 4),
+        )
+        Q424A2 = st.selectbox(
+            "스마트폰 중요도 - 동영상 또는 음성 콘텐츠 시청, 청취",
+            importance_levels,
+            index=random.randint(0, 4),
+        )
+        Q424A3 = st.selectbox(
+            "스마트폰 기능별 중요도 - 커뮤니케이션",
+            importance_levels,
+            index=random.randint(0, 4),
+        )
+        Q424A4 = st.selectbox(
+            "스마트폰 기능별 중요도 - 쇼핑",
+            importance_levels,
+            index=random.randint(0, 4),
+        )
 
-    # 기본 정보 입력
-    # PID = st.number_input("PID", min_value=1, step=1)
-    dm1 = st.selectbox("성별", ["남자", "여자"])
-    DM2 = st.selectbox(
-        "연령대", ["10대", "20대", "30대", "40대", "50대", "60대", "70세 이상"]
-    )
-    DM3 = st.selectbox(
-        "지역",
-        [
-            "서울",
-            "인천/경기",
-            "부산/울산/경남",
-            "광주/전라/제주",
-            "대전/충청/세종",
-            "대구/경북",
-            "강원",
-        ],
-    )
-    DM4 = st.selectbox(
-        "직업", ["학생", "사무직", "서비스/판매직", "생산직", "기타", "주부", "무직"]
-    )
-    dm6 = st.selectbox(
-        "학력", ["중/고등학생", "고졸이하", "대학생/대학원생", "대졸이상"]
-    )
-    dm7 = st.selectbox(
-        "주거형태", ["단독주택", "아파트", "오피스텔", "기타", "다세대 및 연립주택"]
-    )
-    dm8 = st.selectbox(
-        "가구 형태", ["독신가구", "1세대가구", "2세대가구", "3세대가구", "기타"]
-    )
+        # Q419A1 ~ Q419A8 선택지 업데이트
+        frequency_levels = [
+            "전혀안봄/이용안함",
+            "2-3달에 1-2일 이하",
+            "한달에 1-3일",
+            "일주일에 1-2일",
+            "일주일에 3-4일",
+            "일주일에 5-6일",
+            "매일",
+        ]
+        Q419A1 = st.selectbox(
+            "스마트폰 콘텐츠 이용 빈도 - TV프로그램 시청",
+            frequency_levels,
+            index=random.randint(0, 6),
+        )
+        Q419A2 = st.selectbox(
+            "스마트폰 콘텐츠 이용 빈도 - 라디오 청취",
+            frequency_levels,
+            index=random.randint(0, 6),
+        )
+        Q419A3 = st.selectbox(
+            "스마트폰 콘텐츠 이용 빈도 - 영화 보기",
+            frequency_levels,
+            index=random.randint(0, 6),
+        )
+        Q419A4 = st.selectbox(
+            "스마트폰 콘텐츠 이용 빈도 - 뉴스/정보 검색",
+            frequency_levels,
+            index=random.randint(0, 6),
+        )
+        Q419A5 = st.selectbox(
+            "스마트폰 콘텐츠 이용 빈도 - 음악 듣기",
+            frequency_levels,
+            index=random.randint(0, 6),
+        )
+        Q419A6 = st.selectbox(
+            "스마트폰 콘텐츠 이용 빈도 - 게임하기",
+            frequency_levels,
+            index=random.randint(0, 6),
+        )
+        Q419A7 = st.selectbox(
+            "스마트폰 콘텐츠 이용 빈도 - e-book 읽기",
+            frequency_levels,
+            index=random.randint(0, 6),
+        )
+        Q419A8 = st.selectbox(
+            "스마트폰 콘텐츠 이용 빈도 - 동영상 시청",
+            frequency_levels,
+            index=random.randint(0, 6),
+        )
 
-    Q416 = st.number_input(
-        "스마트폰 일 평균 이용시간 (시간)",
-        min_value=0,
-        step=1,
-        value=random.randint(0, 100),
-    )
-    Q417 = st.selectbox(
-        "월평균 스마트폰 이용 요금",
-        [
-            "3만원 미만",
-            "3만원 이상-4만원 미만",
-            "4만원 이상-5만원 미만",
-            "5만원 이상-6만원 미만",
-            "6만원 이상-7만원 미만",
-            "7만원 이상-10만원 미만",
-            "10만원 이상",
-        ],
-        index=random.randint(0, 6),
-    )
-
-    # Q424A1 ~ Q424A4 선택지 업데이트
-    importance_levels = [
-        "매우 중요하다",
-        "중요하다",
-        "보통이다",
-        "중요하지 않다",
-        "전혀 중요하지 않다",
-    ]
-    Q424A1 = st.selectbox("Q424A1", importance_levels, index=random.randint(0, 4))
-    Q424A2 = st.selectbox("Q424A2", importance_levels, index=random.randint(0, 4))
-    Q424A3 = st.selectbox("Q424A3", importance_levels, index=random.randint(0, 4))
-    Q424A4 = st.selectbox("Q424A4", importance_levels, index=random.randint(0, 4))
-
-    # Q419A1 ~ Q419A8 선택지 업데이트
-    frequency_levels = [
-        "전혀안봄/이용안함",
-        "일주일에 1-2일",
-        "매일",
-        "일주일에 3-4일",
-        "한달에 1-3일",
-        "일주일에 5-6일",
-        "2-3달에 1-2일 이하",
-    ]
-    Q419A1 = st.selectbox("Q419A1", frequency_levels, index=random.randint(0, 6))
-    Q419A2 = st.selectbox("Q419A2", frequency_levels, index=random.randint(0, 6))
-    Q419A3 = st.selectbox("Q419A3", frequency_levels, index=random.randint(0, 6))
-    Q419A4 = st.selectbox("Q419A4", frequency_levels, index=random.randint(0, 6))
-    Q419A5 = st.selectbox("Q419A5", frequency_levels, index=random.randint(0, 6))
-    Q419A6 = st.selectbox("Q419A6", frequency_levels, index=random.randint(0, 6))
-    Q419A7 = st.selectbox("Q419A7", frequency_levels, index=random.randint(0, 6))
-    Q419A8 = st.selectbox("Q419A8", frequency_levels, index=random.randint(0, 6))
-
-    # Q263A1 ~ Q263A5 선택지 업데이트
-    agreement_levels = [
-        "보통이다",
-        "그런 편이다",
-        "그렇지 않은 편이다",
-        "매우 그렇다",
-        "전혀 그렇지 않다",
-    ]
-    Q263A1 = st.selectbox("Q263A1", agreement_levels, index=random.randint(0, 4))
-    Q263A2 = st.selectbox("Q263A2", agreement_levels, index=random.randint(0, 4))
-    Q263A3 = st.selectbox("Q263A3", agreement_levels, index=random.randint(0, 4))
-    Q263A4 = st.selectbox("Q263A4", agreement_levels, index=random.randint(0, 4))
-    Q263A5 = st.selectbox("Q263A5", agreement_levels, index=random.randint(0, 4))
+        # Q263A1 ~ Q263A5 선택지 업데이트
+        agreement_levels = [
+            "전혀 그렇지 않다",
+            "그렇지 않은 편이다",
+            "보통이다",
+            "그런 편이다",
+            "매우 그렇다",
+        ]
+        Q263A1 = st.selectbox(
+            "여러 사람과 TV를 함께 보기보다는 혼자보기를 좋아한다",
+            agreement_levels,
+            index=random.randint(0, 4),
+        )
+        Q263A2 = st.selectbox(
+            "프로그램 시리즈 전체 혹은 일부를 몰아서 보는 것을 좋아한다",
+            agreement_levels,
+            index=random.randint(0, 4),
+        )
+        Q263A3 = st.selectbox(
+            "내가 관심 있는 프로그램은 TV 방송 시간에 맞춰서 보는 것을 좋아한다",
+            agreement_levels,
+            index=random.randint(0, 4),
+        )
+        Q263A4 = st.selectbox(
+            "특별한 이유 없이 습관적으로 TV를 본다",
+            agreement_levels,
+            index=random.randint(0, 4),
+        )
+        Q263A5 = st.selectbox(
+            "TV를 보면서 SNS, 문자, 메신저 등으로 친구, 지인과 의견 나누기를 좋아한다",
+            agreement_levels,
+            index=random.randint(0, 4),
+        )
 
     if st.button("예측 실행"):
         input_dict = {
@@ -177,8 +243,10 @@ def main():
             category_dic[idx + 1] for idx, value in enumerate(pred) if value == 1
         ]
 
-        # 출력
-        st.write("선택된 카테고리:", selected_categories.values())
+        if selected_categories:
+            st.success(f"🎯 예측된 카테고리: {', '.join(selected_categories)}")
+        else:
+            st.warning("예측 결과가 없습니다.")
 
 
 if __name__ == "__main__":
