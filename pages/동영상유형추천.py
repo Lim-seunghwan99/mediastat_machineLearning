@@ -178,7 +178,7 @@ def main():
         ]
 
         # 출력
-        st.write("선택된 카테고리:", selected_categories)
+        st.write("선택된 카테고리:", selected_categories.values())
 
 
 if __name__ == "__main__":
