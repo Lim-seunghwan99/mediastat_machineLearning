@@ -1,2 +1,2 @@
 # streamlit_xgboost
-streamlit_publish xgboost broadcast data
+머신러닝 프로젝트, 방송 추천 서비스
